@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Deepfake Detector</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='styles/stylesdeepfake.css') }}">
+    <script>
+        function showHourglass() {
+            // Show the hourglass and clear the previous prediction result
+            document.getElementById('hourglass').style.display = 'inline';
+            document.getElementById('prediction-result').innerHTML = '';
+        }
+    </script>
+</head>
+
+<body>
+    <div class="container">
+        <center>
+            <img src="/static/deepfake.png" height="500" width="1200">
+            <h1 class="text-center predictor-title">Predictor</h1>
+            <h5 class="text-center high-title"><i>by high_five</i></h5>
+
+            <!-- The form will call showHourglass() on submit -->
+            <form class="p-3 text-center" action='/' method="post" enctype="multipart/form-data" onsubmit="showHourglass()">
+                <input class="form-control" type="file" name="video">
+                <input class="btn btn-primary mt-3" type="submit" value="Predict">
+            </form>
+
+            <!-- Hourglass GIF, initially hidden -->
+            <img id="hourglass" src="/static/loader.gif" height="40" width="150" style="display: none;">
+
+            <!-- Prediction result displayed -->
+            <p id="prediction-result" class="text-center">
+                {% if prediction %}
+                Video is {{ prediction }}
+                {% endif %}
+            </p>
+        </center>
+    </div>
+</body>
+
+</html>
